@@ -41,12 +41,13 @@ postscript(file="plotMAXYprenorm.ps", horizontal=FALSE)
 plotMAXY(exprs(BSData), arrays = 1:8,  pch = 16)
 dev.off()
 
-postscript(file="plotDENSITYprenorm.ps", horizontal=FALSE)
+postscript(file="plotDENSITYpostnorm_threshold.ps", horizontal=FALSE)
 E <- log2(exprs(BSData))
 plot(density(E[,1]))
 for(i in 1:8){
   lines(density(E[,i]),col=i)
 }
+abline(v=8,col="red",lwd="3",lty="dotted")
 dev.off()
 
 
@@ -64,12 +65,17 @@ dev.off()
 
 save(BSData.quantile, file="BSData.quantile.RData")
 
-postscript(file="plotDENSITYpostnorm.ps", horizontal=FALSE)
+postscript(file="plotDENSITYpostnorm_threshold.ps", horizontal=FALSE)
 E <- exprs(BSData.quantile)
-plot(density(E[,1]))
+plot(density(E[,1]),
+	main="",
+	xlab="Raw expression level"
+	)
 for(i in 1:8){
   lines(density(E[,i]),col=i)
 }
+abline(v=8,lty="dotted",lwd="3",col="red")
+
 dev.off()
 
 
